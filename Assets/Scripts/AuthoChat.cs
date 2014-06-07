@@ -6,9 +6,10 @@ using Sfs2X.Core;
 using Sfs2X.Requests;
 using Sfs2X.Logging;
 using Sfs2X.Entities;
+using Sfs2X.Entities.Data;
 
 
-public class NonAuthoChat : SFSDemo
+public class AuthoChat : SFSDemo
 {
     public Chat chat;
 
@@ -29,7 +30,7 @@ public class NonAuthoChat : SFSDemo
         _sfs.AddEventListener(SFSEvent.USER_ENTER_ROOM, OnUserEnterRoom);
         _sfs.AddEventListener(SFSEvent.USER_EXIT_ROOM, OnUserExitRoom);
 
-        _sfs.AddEventListener(SFSEvent.PUBLIC_MESSAGE, OnPublicMessageReceived);
+        _sfs.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
 
         chat.onClickedJoinZone += OnClickedJoinZone;
         chat.onClickedJoinRoom += OnClickedJoinRoom;
@@ -133,12 +134,22 @@ public class NonAuthoChat : SFSDemo
     }  
     #endregion
 
-    private void OnPublicMessageReceived(BaseEvent e)
+    private void OnExtensionResponse(BaseEvent e)
     {
-        User sender = e.Params.GetSender();
-        string message = e.Params.GetMessage();
+        string cmd = e.Params.GetCommande();
+        ISFSObject sfsParams = e.Params.GetParams();
 
-        chat.AddMessage(sender.Name, message);
+        if (cmd == "chatMessage")
+        {
+            User sender = e.Params.GetSender();
+            string message = sfsParams.GetUtfString("text");
+
+            chat.AddMessage("Anonymous", message);
+        }
+        else
+        {
+            // ...
+        }
     }
     #endregion
 
@@ -182,7 +193,10 @@ public class NonAuthoChat : SFSDemo
 
     private void OnClickedNewLine(Chat chat)
     {
-        _sfs.Send(new PublicMessageRequest(chat.text));
+        ISFSObject msg = new SFSObject();
+        msg.PutUtfString("text", chat.text);
+
+        _sfs.Send(new ExtensionRequest("chatMessage", msg));
     }
 
 }

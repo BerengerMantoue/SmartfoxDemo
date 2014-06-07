@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Sfs2X.Entities;
+using Sfs2X.Entities.Data;
 
 public static class SmartfoxNetExtension
 {
@@ -30,4 +31,6 @@ public static class SmartfoxNetExtension
     public static User GetUser(this IDictionary dictionary) { return dictionary.GetValue<User>("user"); }
     public static User GetSender(this IDictionary dictionary) { return dictionary.GetValue<User>("sender"); }
     public static string GetMessage(this IDictionary dictionary) { return dictionary.GetValue<string>("message"); }
+    public static string GetCommande(this IDictionary dictionary) { return dictionary.GetValue<string>("cmd"); }
+    public static ISFSObject GetParams(this IDictionary dictionary) { return dictionary.GetValue<ISFSObject>("params"); }
 }

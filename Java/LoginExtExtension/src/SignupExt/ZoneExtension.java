@@ -3,10 +3,7 @@ package SignupExt;
 import com.smartfoxserver.v2.components.signup.SignUpAssistantComponent;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 
-/**
- *
- * @author Berenger
- */
+// @author Berenger
 public class ZoneExtension extends SFSExtension
 {
     private SignUpAssistantComponent suac;

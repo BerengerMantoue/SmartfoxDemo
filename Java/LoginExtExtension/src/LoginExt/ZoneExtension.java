@@ -3,10 +3,7 @@ package LoginExt;
 import com.smartfoxserver.v2.components.login.LoginAssistantComponent;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 
-/**
- *
- * @author Berenger
- */
+// @author Berenger
 public class ZoneExtension extends SFSExtension
 {
     private LoginAssistantComponent lac;

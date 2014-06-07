@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Chat : MonoBehaviour
 {
     public GUISkin skin;
+    public Vector2 windowOffset;
     public Vector2 windowSize;
     public float connectWidth = 90f;
     public float usersWidth = 90f;
@@ -57,8 +58,8 @@ public class Chat : MonoBehaviour
         float width = Screen.width * windowSize.x;
         float height = Screen.height * windowSize.y;
 
-        _windowRect = new Rect((Screen.width - width) / 2f, (Screen.height - height) / 2f,
-                                    Screen.width * windowSize.x, Screen.height * windowSize.y);
+        _windowRect = new Rect(windowOffset.x + (Screen.width - width) / 2f, windowOffset.y + (Screen.height - height) / 2f,
+                                    Screen.width * windowSize.x - windowOffset.x, Screen.height * windowSize.y - windowOffset.y);
 
         GUILayout.BeginArea(_windowRect, GUI.skin.box);
         {
