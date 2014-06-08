@@ -31,17 +31,21 @@ public static class SmartfoxNetExtension
         return default(T);
     }
 
+    public static string GetCommande(this IDictionary dictionary) { return dictionary.GetValue<string>("cmd"); }
+    public static ISFSObject GetParams(this IDictionary dictionary) { return dictionary.GetValue<ISFSObject>("params"); }
     public static Room GetRoom(this IDictionary dictionary) { return dictionary.GetValue<Room>("room"); }
     public static User GetUser(this IDictionary dictionary) { return dictionary.GetValue<User>("user"); }
     public static SFSUser GetSFSUser(this IDictionary dictionary) { return dictionary.GetValue<SFSUser>("user"); }
     public static User GetSender(this IDictionary dictionary) { return dictionary.GetValue<User>("sender"); }
     public static bool GetSuccess(this IDictionary dictionary) { return dictionary.GetValue<bool>("success"); }
     public static string GetMessage(this IDictionary dictionary) { return dictionary.GetValue<string>("message"); }
-    public static string GetCommande(this IDictionary dictionary) { return dictionary.GetValue<string>("cmd"); }
-    public static ISFSObject GetParams(this IDictionary dictionary) { return dictionary.GetValue<ISFSObject>("params"); }
     public static ArrayList GetChangedVars(this IDictionary dictionary) { return dictionary.GetValue<ArrayList>("changedVars"); }
+
+    public static MMORoom GetMMORoom(this IDictionary dictionary) { return dictionary.GetValue<MMORoom>("room"); }
     public static List<User> GetAddedUsers(this IDictionary dictionary) { return dictionary.GetValue<List<User>>("addedUsers"); }
     public static List<User> GetRemovedUsers(this IDictionary dictionary) { return dictionary.GetValue<List<User>>("removedUsers"); }
+    public static List<MMOItem> GetAddedItemss(this IDictionary dictionary) { return dictionary.GetValue<List<MMOItem>>("addedItems"); }
+    public static List<MMOItem> GetRemovedItemss(this IDictionary dictionary) { return dictionary.GetValue<List<MMOItem>>("removedItems"); }
     #endregion
 
     #region Requests
