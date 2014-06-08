@@ -14,43 +14,25 @@ public class Signup : SFSDemo
 
 	protected override void  OnStart()
     {
-        _sfs.AddEventListener(SFSEvent.CONNECTION, OnConnection);
-        _sfs.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
-        _sfs.AddEventListener(SFSEvent.LOGIN, OnLogin);
-        _sfs.AddEventListener(SFSEvent.LOGIN_ERROR, OnLoginError);
         _sfs.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
 	}
 
-    private void OnConnection(BaseEvent e)
+    protected override void OnConnectionSuccess(BaseEvent e)
     {
-        if (e.Params.GetValue<bool>("success"))
-        {
-            print("Connection Success");
-            _sfs.Send(new LoginRequest("", "", zoneName));
-        }
-        else
-            print("Connection Failure");
+        _sfs.SendLoginRequest("", "", zoneName);
     }
 
-    private void OnConnectionLost(BaseEvent e)
+    protected override void OnLogin(BaseEvent e)
     {
-        print("OnConnectionLost");
-    }
+        base.OnLogin(e);
 
-    private void OnLogin(BaseEvent e)
-    {
         print("OnLogin : " + e.Params.GetObject("user"));
         ISFSObject objOut = new SFSObject();
         objOut.PutUtfString("username", userName);
         objOut.PutUtfString("password", password);
         objOut.PutUtfString("email", email);
 
-        _sfs.Send(new ExtensionRequest(CMD_SIGNUP, objOut));
-    }
-
-    private void OnLoginError(BaseEvent e)
-    {
-        print("OnLoginError");
+        _sfs.SendExtensionRequest(CMD_SIGNUP, objOut);
     }
 
     private void OnExtensionResponse(BaseEvent e)
